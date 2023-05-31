@@ -19,6 +19,7 @@ class MovieListViewModel: ObservableObject {
         movies = fetchMovies()
     }
     
+    // Injecting dependency for loading movie items
     func getMovieModel(for movie: Movie) -> MovieViewModel {
         return MovieViewModel(movie: movie)
     }

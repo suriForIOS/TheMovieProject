@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MovieCardView: View {
-    
+    // MARK: Card View Constants
     struct Constants {
         static let textImageSpacing: CGFloat = 24
         static let animationDuration: CGFloat = 10
@@ -24,6 +24,7 @@ struct MovieCardView: View {
         self.movieViewModel = movieViewModel
     }
     
+    // MARK: Card View Body
     var body: some View {
         GeometryReader { metris in
             VStack(alignment: .center, spacing: Constants.textImageSpacing) {
@@ -62,7 +63,7 @@ struct MovieCardView: View {
     }
 }
 
-
+// MARK: Card View Preview
 struct MovieCardView_Previews: PreviewProvider {
     static var previews: some View {
         MovieCardView(movieViewModel: MovieViewModel(movie: Movie()))

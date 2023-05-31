@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct WelcomeView: View {
-    
+    // MARK: Welcome view constants
     struct Constants {
         static let welcomeMessage: String = "Welcome Back User"
         static let chooseCategoryMessage: String = "Choose a category your would like to explore"
@@ -18,6 +18,7 @@ struct WelcomeView: View {
     
     let backgroundColor = Color.black
     
+    // MARK: Welcome view body
     var body: some View {
         NavigationView {
             VStack {
@@ -41,6 +42,7 @@ struct WelcomeView: View {
     }
 }
 
+// MARK: Welcome view previews
 struct WelcomeScreen_Previews: PreviewProvider {
     static var previews: some View {
         WelcomeView()

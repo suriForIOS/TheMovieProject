@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MovieListView: View {
     
+    // MARK: List view constants
     struct Constants {
         static let navigationBarTitle: String = "Romantic Comedy"
         static let frameTopOffset: CGFloat = 104
@@ -18,11 +19,14 @@ struct MovieListView: View {
         static let viewBottomPadding: CGFloat = 30
         static let viewHorizontalPadding: CGFloat = 15
     }
-    @State var searchedTerm = ""
+
     @StateObject var movieListViewModel = MovieListViewModel()
+    @State var searchedTerm = ""
+    
     let columns = Array(repeating: GridItem(.flexible(), spacing: Constants.gridHorizontalSpacing), count: Constants.gridItemCount)
     let backgroundColor = Color.black
     
+    // MARK: List View Body
     var body: some View {
         GeometryReader { metrics in
             VStack {
@@ -53,15 +57,9 @@ struct MovieListView: View {
     }
 }
 
+// Mark: List View Preview
 struct MovieListView_Previews: PreviewProvider {
     static var previews: some View {
         MovieListView()
     }
 }
-
-//extension View {
-//    func Print(_ vars: Any...) -> some View {
-//        for v in vars { print(v) }
-//        return EmptyView()
-//    }
-//}
