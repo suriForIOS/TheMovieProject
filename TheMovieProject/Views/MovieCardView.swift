@@ -39,11 +39,11 @@ struct MovieCardView: View {
                         text
                             .fixedSize()
                             .offset(x: textoffset, y: 0)
-                            .animation(.linear(duration: Constants.animationDuration)
-                                .repeatForever(autoreverses: false), value: textoffset)
-                        
                             .onAppear {
-                                textoffset = -100.0
+                                textoffset = 100.0
+                                withAnimation(Animation.linear(duration: 10).repeatForever(autoreverses: false)) {
+                                    self.textoffset = -100
+                                }
                             }
                     } else {
                         Spacer()
