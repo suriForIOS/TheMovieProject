@@ -21,6 +21,7 @@ struct NavigationBar: View {
                 .frame(height: 130)
             if isSearching {
                 SearchBar(text: $searchString) {
+                    searchString = ""
                     isSearching = false
                 }
             } else {

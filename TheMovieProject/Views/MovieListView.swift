@@ -15,15 +15,18 @@ struct MovieListView: View {
         static let frameTopOffset: CGFloat = 104
         static let gridVerticalSpacing: CGFloat = 45
         static let gridHorizontalSpacing: CGFloat = 15
-        static let gridItemCount: Int = 3
+        static let portraitGridItemCount: Int = 3
+        static let landscapeGridItemCount: Int = 5
         static let viewBottomPadding: CGFloat = 30
         static let viewHorizontalPadding: CGFloat = 15
     }
 
+    @Environment(\.verticalSizeClass) var verticalSizeClass
     @StateObject var movieListViewModel = MovieListViewModel()
     @State var searchedTerm = ""
     
-    let columns = Array(repeating: GridItem(.flexible(), spacing: Constants.gridHorizontalSpacing), count: Constants.gridItemCount)
+    let portraitColumns = Array(repeating: GridItem(.flexible(), spacing: Constants.gridHorizontalSpacing), count: Constants.portraitGridItemCount)
+    let landscapeColumns = Array(repeating: GridItem(.flexible(), spacing: Constants.gridHorizontalSpacing), count: Constants.landscapeGridItemCount)
     let backgroundColor = Color.black
     
     // MARK: List View Body
@@ -33,11 +36,11 @@ struct MovieListView: View {
                 ScrollView {
                     Rectangle()
                         .frame(height: Constants.frameTopOffset)
-                    LazyVGrid (columns: columns, spacing: Constants.gridVerticalSpacing) {
+                    LazyVGrid (columns: verticalSizeClass == .compact ? landscapeColumns : portraitColumns, spacing: Constants.gridVerticalSpacing) {
                         ForEach(movieListViewModel.movies.filter({"\($0.name)".lowercased().contains("\(searchedTerm)".lowercased()) || "\(searchedTerm)".isEmpty})) { movie in
-                            
-                            MovieCardView(movieViewModel: movieListViewModel.getMovieModel(for: movie))
-                                .frame(height: 0.26 * metrics.size.height)
+                           MovieCardView(movieViewModel: movieListViewModel.getMovieModel(for: movie))
+                                .frame(height: verticalSizeClass == .compact ? 0.7 * metrics.size.height : 0.26 * metrics.size.height)
+                                .frame(maxWidth: .infinity)
                                 .onAppear {
                                     movieListViewModel.shouldLoadMoreContent(after: movie)
                                 }
@@ -45,6 +48,7 @@ struct MovieListView: View {
                     }
                     .padding(.bottom, Constants.viewBottomPadding)
                 }
+                .scrollDismissesKeyboard(.immediately)
             }
             .padding(.horizontal, Constants.viewHorizontalPadding)
             .overlay {
@@ -53,7 +57,7 @@ struct MovieListView: View {
             .background(backgroundColor)
             .edgesIgnoringSafeArea(.top)
             .navigationBarHidden(true)
-        }
+        }.ignoresSafeArea(.keyboard)
     }
 }
 

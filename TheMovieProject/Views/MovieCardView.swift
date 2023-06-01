@@ -14,6 +14,7 @@ struct MovieCardView: View {
         static let animationDuration: CGFloat = 10
     }
     
+    @Environment(\.verticalSizeClass) var verticalSizeClass
     @ObservedObject var movieViewModel: MovieViewModel
     @State var isTruncated: Bool = false
     @State private var textoffset = 100.0
@@ -35,7 +36,7 @@ struct MovieCardView: View {
                     TruncableText(text: text, lineLimit: 1) {
                         isTruncated = $0
                     }
-                    if isTruncated {
+                    if isTruncated && verticalSizeClass != .compact {
                         text
                             .fixedSize()
                             .offset(x: textoffset, y: 0)
